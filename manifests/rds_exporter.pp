@@ -101,7 +101,7 @@ class prometheus::rds_exporter (
   Optional[String[1]] $extra_options                         = undef,
   Optional[Prometheus::Uri] $download_url                    = undef,
   String[1] $config_mode                                     = $prometheus::config_mode,
-  String[1] $arch                                            = $prometheus::real_arch,
+  String[1] $arch                                            = $facts['os']['hardware'],
   Stdlib::Absolutepath $bin_dir                              = $prometheus::bin_dir,
   Boolean $export_scrape_job                                 = false,
   Optional[Stdlib::Host] $scrape_host                        = undef,
