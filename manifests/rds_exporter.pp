@@ -121,6 +121,16 @@ class prometheus::rds_exporter (
     default => undef,
   }
 
+  $extract_path = "/opt/${service_name}-${version}.${downcase(os)}-${arch}"
+
+  file { $extract_path:
+    ensure => directory,
+    owner  => 'root',
+    group  => 0, # 0 instead of root because OS X uses "wheel".
+    mode   => '0755',
+    before => Prometheus::Daemon[$service_name],
+  }
+
   if $manage_config {
     file { $config_file:
       ensure  => file,
@@ -168,7 +178,8 @@ class prometheus::rds_exporter (
     os                 => $os,
     arch               => $arch,
     real_download_url  => $real_download_url,
-    archive_bin_path   => "/opt/${service_name}-${version}.${os}-${arch}/${package_name}",
+    archive_bin_path   => "${extract_path}/${package_name}",
+    extract_path       => $extract_path,
     bin_dir            => $bin_dir,
     notify_service     => $notify_service,
     package_name       => $package_name,

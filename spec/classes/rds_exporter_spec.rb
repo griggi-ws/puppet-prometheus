@@ -23,13 +23,13 @@ describe 'prometheus::rds_exporter' do
         describe 'with all defaults' do
           it { is_expected.to contain_class('prometheus') }
           it { is_expected.to compile.with_all_deps }
-          it { is_expected.to contain_file('/usr/local/bin/rds_exporter').with('target' => '/opt/rds_exporter-0.10.0.Linux-amd64/prometheus-rds-exporter') }
+          it { is_expected.to contain_file('/usr/local/bin/rds_exporter').with('target' => '/opt/rds_exporter-0.10.0.linux-x86_64/prometheus-rds-exporter') }
           it { is_expected.to contain_prometheus__daemon('rds_exporter') }
           it { is_expected.to contain_user('rds-exporter') }
           it { is_expected.to contain_group('rds-exporter') }
           it { is_expected.to contain_service('rds_exporter') }
           it { is_expected.to contain_archive('/tmp/rds_exporter-0.10.0.tar.gz') }
-          it { is_expected.to contain_file('/opt/rds_exporter-0.10.0.Linux-amd64/prometheus-rds-exporter') }
+          it { is_expected.to contain_file('/opt/rds_exporter-0.10.0.linux-x86_64/prometheus-rds-exporter') }
         end
 
         context 'with tls set in web-config.yml' do
