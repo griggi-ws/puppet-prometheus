@@ -121,7 +121,7 @@ class prometheus::rds_exporter (
     default => undef,
   }
 
-  $extract_path = "/opt/${service_name}-${version}.${downcase(os)}-${arch}"
+  $extract_path = "/opt/${service_name}-${version}.${downcase($os)}-${arch}"
 
   file { $extract_path:
     ensure => directory,
