@@ -98,6 +98,8 @@ define prometheus::daemon (
         }
         -> archive { "/opt/${name}-${version}.${os}-${arch}/${name}":
           ensure          => present,
+          user            => 'root',
+          group           => 0,
           source          => $real_download_url,
           checksum_verify => false,
           before          => File["/opt/${name}-${version}.${os}-${arch}/${name}"],
@@ -107,6 +109,8 @@ define prometheus::daemon (
       } else {
         archive { "/tmp/${name}-${version}.${download_extension}":
           ensure          => present,
+          user            => 'root',
+          group           => 0,
           extract         => true,
           extract_path    => $extract_path,
           source          => $real_download_url,
